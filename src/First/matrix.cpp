@@ -11,10 +11,19 @@ void Matrix::writeDisplay(void) {
 		}
 		std::cout << std::endl;
 	}
+	std::cout << std::endl;
 }
 
 void Matrix::clear(void) {
 	for(int y=0; y<8; y++) {
-		displaybuffer[y] = 0x0000;
+		clearRow(y);
 	}
+}
+
+void Matrix::clearRow(uint8_t rowIdx) {
+	displaybuffer[rowIdx] = 0x0000;
+}
+
+void Matrix::fillRow(uint8_t rowIdx) {
+	displaybuffer[rowIdx] = 0xFFFF;
 }

@@ -32,6 +32,9 @@ public:
 	void writeDisplay(void);
 	void clear(void);
 
+	void clearRow(uint8_t rowIdx);
+	void fillRow(uint8_t rowIdx);
+
 protected:
 	uint8_t		i2c_addr;
 	uint16_t	displaybuffer[8];
