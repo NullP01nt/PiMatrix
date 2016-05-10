@@ -1,0 +1,10 @@
+nikolaj:
+read input from usb device
+	publish protocol version, device, 	event
+	eg 	01		, mouse,	L_click
+
+maybe a simple version where it sends the event verbatim.
+
+xander: 
+PCB and driver code for the matrix.
+
