@@ -5,4 +5,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS =	First \
-			JSTest
+			JSTest\
+			mouse
