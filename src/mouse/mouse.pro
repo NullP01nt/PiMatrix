@@ -2,9 +2,9 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
+CONFIG += core
+CONFIG += c++11
 
 TARGET = mouse
-
-QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp
