@@ -2917,13 +2917,9 @@ design rules under a new name.</description>
 <contactref element="LED2" pad="2"/>
 <wire x1="17.15" y1="14.03" x2="17.15" y2="12.25" width="0.3048" layer="16"/>
 <via x="17.15" y="12.25" extent="1-16" drill="0.6" shape="octagon"/>
-<wire x1="17.15" y1="12.25" x2="21.4" y2="8" width="0.3048" layer="1"/>
-<wire x1="21.4" y1="8" x2="26.55" y2="8" width="0.3048" layer="1"/>
-<wire x1="26.55" y1="8" x2="28.25" y2="6.3" width="0.3048" layer="1"/>
-<wire x1="28.25" y1="6.3" x2="28.25" y2="2.65" width="0.3048" layer="1"/>
-<wire x1="28.25" y1="2.65" x2="28.65" y2="2.25" width="0.3048" layer="1"/>
-<wire x1="28.65" y1="2.25" x2="30.15" y2="2.25" width="0.3048" layer="1"/>
-<wire x1="30.15" y1="2.25" x2="33.9" y2="6" width="0.3048" layer="1"/>
+<wire x1="17.15" y1="12.25" x2="20.55" y2="9.05" width="0.3048" layer="1"/>
+<wire x1="20.55" y1="9.05" x2="25.7" y2="9.05" width="0.3048" layer="1"/>
+<wire x1="25.7" y1="9.05" x2="28.25" y2="6.3" width="0.3048" layer="1"/>
 <wire x1="33.9" y1="6" x2="34.15" y2="6" width="0.3048" layer="1"/>
 <via x="34.15" y="6" extent="1-16" drill="0.6" shape="octagon"/>
 <wire x1="34.15" y1="6" x2="36.85" y2="3.3" width="0.3048" layer="16"/>
@@ -2936,6 +2932,8 @@ design rules under a new name.</description>
 <wire x1="23.8" y1="26.3" x2="17.2" y2="19.7" width="0.3048" layer="16"/>
 <wire x1="17.2" y1="19.7" x2="17.2" y2="14.08" width="0.3048" layer="16"/>
 <wire x1="17.2" y1="14.08" x2="17.15" y2="14.03" width="0.3048" layer="16"/>
+<wire x1="28.25" y1="6.3" x2="33.85" y2="6.3" width="0.3048" layer="1"/>
+<wire x1="33.85" y1="6.3" x2="34.15" y2="6" width="0.3048" layer="1"/>
 </signal>
 <signal name="N$3">
 <contactref element="U2" pad="P$7"/>
@@ -2963,17 +2961,20 @@ design rules under a new name.</description>
 <wire x1="44.405" y1="22.92" x2="44.405" y2="14.03" width="0.3048" layer="16"/>
 <wire x1="44.405" y1="14.03" x2="52.61" y2="14.03" width="0.3048" layer="16"/>
 <via x="44.405" y="14.03" extent="1-16" drill="0.6" shape="octagon"/>
-<wire x1="44.405" y1="14.03" x2="31.425" y2="1.05" width="0.3048" layer="1"/>
-<wire x1="31.425" y1="1.05" x2="27.9" y2="1.05" width="0.3048" layer="1"/>
-<wire x1="27.9" y1="1.05" x2="26.75" y2="2.2" width="0.3048" layer="1"/>
-<wire x1="26.75" y1="2.2" x2="26.75" y2="5.8" width="0.3048" layer="1"/>
-<wire x1="26.75" y1="5.8" x2="25.8" y2="6.75" width="0.3048" layer="1"/>
-<wire x1="25.8" y1="6.75" x2="19.35" y2="6.75" width="0.3048" layer="1"/>
-<wire x1="19.35" y1="6.75" x2="14.55" y2="11.55" width="0.3048" layer="1"/>
+<wire x1="27.65" y1="5.8" x2="25.05" y2="8.05" width="0.3048" layer="1"/>
+<wire x1="25.05" y1="8.05" x2="18.6" y2="8.05" width="0.3048" layer="1"/>
+<wire x1="18.6" y1="8.05" x2="14.55" y2="11.55" width="0.3048" layer="1"/>
 <wire x1="14.55" y1="11.55" x2="14.55" y2="12.2" width="0.3048" layer="1"/>
 <via x="14.55" y="12.2" extent="1-16" drill="0.6" shape="octagon"/>
 <wire x1="14.55" y1="12.2" x2="14.61" y2="12.26" width="0.3048" layer="16"/>
 <wire x1="14.61" y1="12.26" x2="14.61" y2="14.03" width="0.3048" layer="16"/>
+<wire x1="35" y1="4.45" x2="39" y2="8.45" width="0.3048" layer="1"/>
+<wire x1="39" y1="8.45" x2="42.55" y2="8.45" width="0.3048" layer="1"/>
+<wire x1="42.55" y1="8.45" x2="44.4" y2="10.3" width="0.3048" layer="1"/>
+<wire x1="44.4" y1="10.3" x2="44.4" y2="14.025" width="0.3048" layer="1"/>
+<wire x1="44.4" y1="14.025" x2="44.405" y2="14.03" width="0.3048" layer="1"/>
+<wire x1="27.65" y1="5.8" x2="29" y2="4.45" width="0.3048" layer="1"/>
+<wire x1="29" y1="4.45" x2="35" y2="4.45" width="0.3048" layer="1"/>
 </signal>
 <signal name="N$6">
 <contactref element="U2" pad="P$4"/>
@@ -3087,18 +3088,21 @@ design rules under a new name.</description>
 <contactref element="SV1" pad="6"/>
 <contactref element="SV1" pad="9"/>
 <contactref element="SV2" pad="2"/>
-<polygon width="0.3048" layer="1">
+<polygon width="0.3048" layer="1" isolate="0.6096">
 <vertex x="0" y="55.88"/>
 <vertex x="0" y="0"/>
 <vertex x="86.36" y="0"/>
 <vertex x="86.36" y="55.88"/>
 </polygon>
-<polygon width="0.3048" layer="16">
+<polygon width="0.3048" layer="16" isolate="0.6096">
 <vertex x="0" y="55.88"/>
 <vertex x="0" y="0"/>
 <vertex x="86.36" y="0"/>
 <vertex x="86.36" y="55.88"/>
 </polygon>
+<via x="52.6" y="22.9" extent="1-16" drill="0.6" shape="octagon"/>
+<via x="61.6" y="35.45" extent="1-16" drill="0.6" shape="octagon"/>
+<wire x1="33.45270625" y1="53.77" x2="38.53270625" y2="51.23" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$19">
 <contactref element="A1" pad="1"/>
