@@ -6,6 +6,6 @@ CONFIG += c++11 link_pkgconfig
 PKGCONFIG += libzmq
 
 
-TARGET = mouse
+TARGET = mouse_receiver
 
 SOURCES += main.cpp

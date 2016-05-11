@@ -3,20 +3,34 @@
 #include <stdexcept>
 
 #include <linux/input.h> //the struct for input events
+
 #include <cstdlib>
 #include <string>
 
-int main(){
-    struct input_event event;
-    int x_pos = 0, y_pos = 0;
+#include <zmq/zmq.hpp>
 
-    const int y_max = 400;
-    const int x_max = 800;
+#include "message.hpp" //event without time information
+
+
+/**
+ * Mouse Server application.
+ * Reads the device input for a mouse (or controller).
+ * Repackage the data to strip the time information
+ */
+
+int main(){
+    zmq::context_t context (1);
+    zmq::socket_t socket (context, ZMQ_PUB);
+    socket.bind("tcp://*:5555");
+
+    struct input_event event;
 
     std::string idev_name;
-    idev_name = std::string(getenv("MOUSE_INPUT_DEV"));
-    std::cout << idev_name << std::endl;
-		
+    try {
+        idev_name = std::string(getenv("MOUSE_INPUT_DEV"));
+    } catch(std::logic_error) {
+        idev_name = "/dev/input/mice";
+    }
 
     while(true){
 
@@ -28,37 +42,11 @@ int main(){
         }
 
         while( file.read(reinterpret_cast<char*>(&event),sizeof(struct input_event)) ) {
-            if (event.type == 2) {
-                if (event.code == 0) x_pos += event.value;
-                if (event.code == 1) y_pos += event.value;
+            message m_event = {event.type,event.code,event.value};
 
-                if(x_pos> x_max) x_pos =  x_max;
-                if(x_pos<-x_max) x_pos = -x_max;
-                if(y_pos> y_max) y_pos =  y_max;
-                if(y_pos<-y_max) y_pos = -y_max;
-                std::cout << event.time.tv_sec << "." << event.time.tv_usec
-                          << " x " << x_pos
-                          << " y " << y_pos
-                          << std::endl;
-            } else if (event.type == 1) {
-                std::cout << event.time.tv_sec << "." << event.time.tv_usec << " ";
-                switch(event.code){
-                case 272:
-                    std::cout << "Left btn ";
-                    break;
-                case 273:
-                    std::cout << "Right btn ";
-                    break;
-                case 274:
-                    std::cout << "Mid btn ";
-                    break;
-                default:
-                    std::cout << event.code << "Unknown event ";
-                    break;
-                }
-                if (event.value == 0) std::cout << "released!!\n";
-                if (event.value == 1) std::cout << "pressed!!\n";
-            }
+            zmq::message_t out_going_message (sizeof(message));
+            memcpy (out_going_message.data (), &m_event, sizeof(message));
+            socket.send (out_going_message);
         }
         file.close();
     }
