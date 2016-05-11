@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <cstdint>
+#include "pos.hpp"
 
 #define HT16K33_BLINK_CMD			0x80
 #define HT16K33_BLINK_DISPLAYON		0x01
@@ -34,6 +35,24 @@ public:
 
 	void clearRow(uint8_t rowIdx);
 	void fillRow(uint8_t rowIdx);
+
+    void turn_on(pos point){
+        displaybuffer[point.y] = displaybuffer[point.y] | 1 << point.x;
+    }
+    void turn_off(pos point){
+        displaybuffer[point.y] = displaybuffer[point.y] & !(1 << point.x);
+    }
+    u_int16_t status(pos point){
+            return displaybuffer[point.y] & (1 << point.x);
+    }
+    void flip(pos point){
+        if(status(point)){
+            turn_off(point);
+        } else {
+            turn_on(point);
+        }
+    }
+
 
 protected:
 	uint8_t		i2c_addr;

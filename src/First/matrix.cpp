@@ -3,8 +3,8 @@
 
 #define DEBUG
 
-Matrix::Matrix(void) {};
-Matrix::~Matrix(void) {};
+Matrix::Matrix(void) {}
+Matrix::~Matrix(void) {}
 
 void Matrix::writeDisplay(void) {
 #ifdef DEBUG

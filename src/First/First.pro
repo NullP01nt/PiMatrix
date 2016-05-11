@@ -10,5 +10,7 @@ CONFIG -= qt
 CONFIG += c++11
 
 # Input
-HEADERS += matrix.h
+HEADERS += matrix.h \
+    pos.hpp \
+    snake.hpp
 SOURCES += main.cpp matrix.cpp
