@@ -3,8 +3,8 @@
 #include <stdexcept>
 
 #include <linux/input.h> //the struct for input events
-
-#define MOUSEFILE "/dev/input/event15"
+#include <cstdlib>
+#include <string>
 
 int main(){
     struct input_event event;
@@ -13,10 +13,15 @@ int main(){
     const int y_max = 400;
     const int x_max = 800;
 
+    std::string idev_name;
+    idev_name = std::string(getenv("MOUSE_INPUT_DEV"));
+    std::cout << idev_name << std::endl;
+		
+
     while(true){
 
         std::ifstream file;
-        file.open(MOUSEFILE);
+        file.open(idev_name);
 
         if(!file.good()){
             throw( std::runtime_error("opening device, do you have permission?") );
