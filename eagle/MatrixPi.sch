@@ -9776,11 +9776,17 @@ Source: AVX .. aphvc.pdf</description>
 </sheet>
 </sheets>
 <errors>
+<approved hash="102,1,2.54,129.54,+3V3,VDD,,,,"/>
+<approved hash="106,1,12.7,111.76,GPIO4,,,,,"/>
+<approved hash="106,1,27.94,109.22,RXD0,,,,,"/>
+<approved hash="106,1,27.94,111.76,TXD0,,,,,"/>
 <approved hash="113,1,20.32,23.8845,A1,,,,,"/>
 <approved hash="113,1,20.32,31.5045,A0,,,,,"/>
 <approved hash="113,1,20.32,16.2645,A2,,,,,"/>
 <approved hash="113,1,215.951,74.8792,LED1,,,,,"/>
 <approved hash="113,1,287.071,74.8792,LED2,,,,,"/>
+<approved hash="113,1,20.32,112.835,SV1,,,,,"/>
+<approved hash="113,1,-16.3153,88.9423,SV2,,,,,"/>
 </errors>
 </schematic>
 </drawing>
