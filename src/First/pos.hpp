@@ -1,15 +1,16 @@
 #pragma once
 
 #include <cstdlib>
+#include <iostream>
+#include <string>
 
 class pos{
-private:
-  u_int8_t x, y;
 public:
+  uint8_t x, y;
 
   pos(){}
 
-  pos(u_int8_t x, u_int8_t y):x(x),y(y){}
+  pos(uint8_t x, uint8_t y):x(x),y(y){}
 
   pos(const pos &other){
       x = other.x;
@@ -32,4 +33,9 @@ public:
   bool operator !=(const pos &other){
       return !(*this == other);
   }
+//  std::ostream& operator <<(std::ostream& os, pos& p ){
+//      os << " (" << reinterpret_cast<int>(p.x) << "," << reinterpret_cast<int>(p.y) << ") ";
+//      return os;
+//  }
+
 };

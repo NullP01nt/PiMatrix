@@ -12,5 +12,6 @@ CONFIG += c++11
 # Input
 HEADERS += matrix.h \
     pos.hpp \
-    snake.hpp
+    snake.hpp \
+    gui.hpp
 SOURCES += main.cpp matrix.cpp

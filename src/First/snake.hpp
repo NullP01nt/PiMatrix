@@ -1,5 +1,4 @@
-#ifndef SNAKE_HPP
-#define SNAKE_HPP
+#pragma once
 
 #include <list>
 #include "pos.hpp"
@@ -28,14 +27,18 @@ public:
     }
 
     void set_game_state(gamestate new_state){
+        if(state == gameover){
+            init_snake(3,pos(game_width/2,game_height/2));
+            generate_berry();
+        }
         state = new_state;
     }
 
-private:
+protected:
     void move_snake(){
         pos new_head = *body.begin();
 
-        switch (direction){
+        switch (dir){
         case north :
             new_head.y--;
             break;
@@ -51,25 +54,21 @@ private:
         default:
             break;
         }
-        moving_dir = direction;
+        moving_dir = dir;
 
         body.push_front(new_head);
 
         if(new_head == berry){
-            generateBerry();
+            generate_berry();
         } else{
-            _snake.pop_back();
+            body.pop_back();
         }
     }
 
     bool in_collision(pos &p){
-        if(p == *body.begin()){
-            return true;
-        } else {
-            for(std::list< point >::iterator t = ++_snake.begin(); t != _snake.end(); ++t){
-                if(p == *t){
-                    return true;
-                }
+        for(std::list< pos >::iterator t = body.begin(); t != body.end(); ++t){
+            if(p == *t){
+                return true;
             }
         }
         return false;
@@ -79,7 +78,7 @@ private:
         bool valid_berry = false;
         pos berry_pos;
         while(!valid_berry) {
-            berry.rand_point(game_width, game_height);
+            berry_pos.rand_point(game_width, game_height);
             valid_berry = !in_collision(berry_pos);
         }
         berry = berry_pos;
@@ -89,7 +88,7 @@ private:
         body.clear();
         body.resize(size);
         pos p(head);
-        for(std::list< point >::iterator sn = body.begin(); sn != body.end(); ++sn){
+        for(std::list< pos >::iterator sn = body.begin(); sn != body.end(); ++sn){
             *sn = p;
             p.y++;
         }
@@ -115,7 +114,7 @@ private:
         }
         return ret;
     }
-    u_int8_t game_height, game_width;
+    uint8_t game_height, game_width;
     std::list<pos> body;
     pos berry;
 
@@ -123,4 +122,3 @@ private:
     gamestate state;
 };
 
-#endif // SNAKE_HPP

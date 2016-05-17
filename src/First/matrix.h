@@ -37,13 +37,16 @@ public:
 	void fillRow(uint8_t rowIdx);
 
     void turn_on(pos point){
-        displaybuffer[point.y] = displaybuffer[point.y] | 1 << point.x;
+        uint8_t x = 16 - point.x;
+        displaybuffer[point.y] = displaybuffer[point.y] | 1 << x;
     }
     void turn_off(pos point){
-        displaybuffer[point.y] = displaybuffer[point.y] & !(1 << point.x);
+        uint8_t x = 16 - point.x;
+        displaybuffer[point.y] = displaybuffer[point.y] & !(1 << x);
     }
     u_int16_t status(pos point){
-            return displaybuffer[point.y] & (1 << point.x);
+        uint8_t x = 16 - point.x;
+        return displaybuffer[point.y] & (1 << x);
     }
     void flip(pos point){
         if(status(point)){
