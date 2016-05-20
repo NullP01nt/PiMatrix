@@ -9,4 +9,4 @@ INCLUDEPATH += .
 include($$PWD/../common.pri)
 
 # Input
-SOURCES += main.cpp
+SOURCES += proxy_main.cpp
