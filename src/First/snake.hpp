@@ -1,7 +1,7 @@
 #pragma once
 
 #include <list>
-#include "pos.hpp"
+#include "../First/pos.hpp"
 
 enum direction {north, south, east, west};
 enum gamestate {running, paused, gameover};
@@ -9,12 +9,12 @@ enum gamestate {running, paused, gameover};
 class snake {
 public:
     snake():
-        game_width(16),
-        game_height(8),
         body(),
         berry(),
         dir(),
         moving_dir(),
+        game_width(16),
+        game_height(8),
         state(paused){
         init_snake(3,pos(game_width/2,game_height/2));
         generate_berry();
@@ -30,38 +30,41 @@ public:
         if(state == gameover){
             init_snake(3,pos(game_width/2,game_height/2));
             generate_berry();
+            state = paused;
         }
         state = new_state;
     }
 
 protected:
     void move_snake(){
-        pos new_head = *body.begin();
+        if(state == running){
+            pos new_head = *body.begin();
 
-        switch (dir){
-        case north :
-            new_head.y--;
-            break;
-        case south :
-            new_head.y++;
-            break;
-        case east :
-            new_head.x++;
-            break;
-        case west :
-            new_head.x--;
-            break;
-        default:
-            break;
-        }
-        moving_dir = dir;
+            switch (dir){
+            case north :
+                new_head.y--;
+                break;
+            case south :
+                new_head.y++;
+                break;
+            case east :
+                new_head.x++;
+                break;
+            case west :
+                new_head.x--;
+                break;
+            default:
+                break;
+            }
+            moving_dir = dir;
 
-        body.push_front(new_head);
+            body.push_front(new_head);
 
-        if(new_head == berry){
-            generate_berry();
-        } else{
-            body.pop_back();
+            if(new_head == berry){
+                generate_berry();
+            } else{
+                body.pop_back();
+            }
         }
     }
 
