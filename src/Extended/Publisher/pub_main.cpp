@@ -20,7 +20,8 @@ int main () {
     //  Prepare our context and publisher
     zmq::context_t context (1);
     zmq::socket_t publisher (context, ZMQ_PUB);
-    publisher.connect("tcp://localhost:55554");
+//    publisher.connect("tcp://localhost:55554");
+    publisher.bind("tcp://*:55555");
 
     input_event_msg_t m_event;
     uint16_t ev_type;

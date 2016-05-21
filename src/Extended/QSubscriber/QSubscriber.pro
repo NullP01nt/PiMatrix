@@ -8,6 +8,9 @@ INCLUDEPATH += .
 
 include($$PWD/../common.pri)
 
+MOC_DIR=$$PWD/moc
+OBJECTS_DIR=$$PWD/objs
+
 # Input
 HEADERS += app.h \
     ZMQSubApp.h

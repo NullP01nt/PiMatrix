@@ -11,6 +11,7 @@
 #include "app.h"
 
 class ZMQSubApp : public QCoreApplication {
+	Q_OBJECT
 public:
         ZMQSubApp(int &argc, char **argv);
         ~ZMQSubApp(void);
@@ -18,14 +19,21 @@ public:
 protected:
 
 private:
-    void loadSettings();
-    int initSocket();
+    void loadSettings(void);
+    int initSocket(void);
 
     std::string hostname;
     uint32_t portnumber;
     std::string topicname;
 
-    QSocketNotifier	*_qsn;
-    zmq::context_t	*_zmq_ctx;
-    zmq::socket_t	*_zmq_sock;
+	std::string connect_str;
+
+	uint32_t		socket_fd;
+	size_t			socket_fd_size;
+    QSocketNotifier	*socket_notifier = nullptr;
+    zmq::context_t	*zmq_context = nullptr;
+    zmq::socket_t	*zmq_socket = nullptr;
+
+private slots:
+    void data_received(int fd);
 };

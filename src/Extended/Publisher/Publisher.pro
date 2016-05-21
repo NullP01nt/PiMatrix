@@ -10,5 +10,8 @@ include($$PWD/../common.pri)
 
 message($$INCLUDEPATH)
 
+MOC_DIR=$$PWD/build/moc
+OBJECTS_DIR=$$PWD/build/objs
+
 # Input
-SOURCES += main.cpp
+SOURCES += pub_main.cpp

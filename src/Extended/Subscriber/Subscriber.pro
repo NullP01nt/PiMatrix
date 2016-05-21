@@ -8,5 +8,8 @@ INCLUDEPATH += .
 
 include($$PWD/../common.pri)
 
+MOC_DIR=$$PWD/build/moc
+OBJECTS_DIR=$$PWD/build/objs
+
 # Input
-SOURCES += main.cpp
+SOURCES += sub_main.cpp
