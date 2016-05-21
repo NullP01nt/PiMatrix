@@ -31,6 +31,7 @@ int ZMQSubApp::initSocket(void) {
 
     zmq_socket = new zmq::socket_t(*zmq_context, ZMQ_SUB);
     zmq_socket->connect(connect_str);
+    zmq_socket->connect(connect_str);
     zmq_socket->setsockopt(ZMQ_SUBSCRIBE,topicname.c_str(), topicname.length()+1);
 
     socket_fd_size = sizeof(socket_fd);
@@ -52,7 +53,7 @@ void ZMQSubApp::data_received(int fd) {
     while(1) {
         zmq_socket->getsockopt(ZMQ_EVENTS, &events, &events_size);
         if( ( events & ZMQ_POLLIN ) == 0) {
-            std::cerr << TAG << " zmq_data_received() no data" << std::endl;
+            std::cerr << TAG << " zmq_data_received() no data " << events << std::endl;
             break;
         }
 

@@ -5,8 +5,10 @@
 #include "gui_updater.h"
 #include "event_handler.h"
 
-//Q_DECLARE_METATYPE( message )
-
+/*
+ * This reads the input over ømq and updates the snake game
+ * works with the "mouse" application
+ */
 
 int main(int argc, char* argv[]) {
     QCoreApplication application(argc, argv);

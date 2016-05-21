@@ -1,0 +1,27 @@
+Partlist
+
+Exported from MatrixPi.brd at 5/21/16 4:27 PM
+
+EAGLE Version 6.5.0 Copyright (c) 1988-2013 CadSoft
+
+Assembly variant: 
+
+Part     Value          Package                     Library      Position (mm)         Orientation
+
+A0                      SOLDERJUMPER_REFLOW_NOPASTE microbuilder (41 41)               MR270
+A1                      SOLDERJUMPER_REFLOW_NOPASTE microbuilder (43.5 41)             MR270
+A2                      SOLDERJUMPER_REFLOW_NOPASTE microbuilder (46 41)               MR270
+C1       10uF           C0805                       rcl          (53.062 32.2)         MR90
+C2       10uF           C0805                       rcl          (55.118 32.2)         MR90
+C3       10uF           C0805                       rcl          (57.186 32.2)         MR90
+D1       1N4148         SOD-323F                    adafruit     (33.377 45.922)       MR180
+LED1                    TA15-11CGKWA                matrix_parts (61.5 28)             R0
+LED2                    TA15-11CGKWA                matrix_parts (23.5 28)             R0
+R1       10K            M0805                       resistor     (62.148 32.2)         MR270
+R2       10K            M0805                       resistor     (60.08 32.2)          MR270
+R3       10K            M0805                       resistor     (43.5 45)             MR270
+R4       10K            M0805                       resistor     (41 45)               MR270
+R5       10K            M0805                       resistor     (46 45)               MR270
+SV1                     MA05-2                      con-lstb     (33.45270625 52.5)    R0
+SV2                     MA03-1                      con-lstb     (16.05 51.5)          R270
+U2       28-SOIC        SOP28_300MIL                microbuilder (42.5 28)             MR0
