@@ -29,7 +29,7 @@ int main(){
     try {
         idev_name = std::string(getenv("MOUSE_INPUT_DEV"));
     } catch(std::logic_error) {
-        idev_name = "/dev/input/mice";
+        idev_name = "/dev/input/event15"; //mice and event* does not use the same format!
     }
 
     while(true){
