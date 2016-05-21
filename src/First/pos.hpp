@@ -10,7 +10,7 @@ public:
 
   pos(){}
 
-  pos(uint8_t x, uint8_t y):x(x),y(y){}
+  pos(uint8_t xx, uint8_t yy):x(xx),y(yy){}
 
   pos(const pos &other){
       x = other.x;
