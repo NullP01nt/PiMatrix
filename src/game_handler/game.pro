@@ -12,7 +12,7 @@ MOC_DIR=$$PWD/moc
 OBJECTS_DIR=$$PWD/objs
 
 # Input
-HEADERS += app.h \
+HEADERS += \
     receiver.h \
     worker.h\
     matrix.h\

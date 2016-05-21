@@ -6,7 +6,7 @@
 #include <msg_types.hpp>
 #include <zmq/zmq.hpp>
 #include <unistd.h>
-#include "app.h"
+#include <app.h>
 #include <iostream>
 
 class receiver : public QThread

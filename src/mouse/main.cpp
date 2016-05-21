@@ -8,9 +8,10 @@
 #include <string>
 
 #include <zmq/zmq.hpp>
+#include <app.h>
+#include <QSettings>
 
-//#include "message.hpp" //event without time information
-#include <msg_types.hpp> //better message
+#include <msg_types.hpp>
 
 /**
  * Mouse Server application.
@@ -19,18 +20,21 @@
  */
 
 int main(){
+
+    QSettings settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME);
+    std::string hostname   = settings.value("subscriber/host","localhost").toString().toStdString();
+    std::string topicname  = settings.value("subscriber/topic","HELLO").toString().toStdString();
+    int portnumber         = settings.value("subscriber/port",55555).toInt();
+    std::string idev_name  = settings.value("subscriber/mouse","/dev/input/event15").toString().toStdString();
+
+    std::string connect_str = "tcp://*:" + std::to_string( portnumber );
+
+
     zmq::context_t context (1);
     zmq::socket_t socket (context, ZMQ_PUB);
-    socket.bind("tcp://*:55555");
+    socket.bind(connect_str);
 
     struct input_event event;
-
-    std::string idev_name;
-    try {
-        idev_name = std::string(getenv("MOUSE_INPUT_DEV"));
-    } catch(std::logic_error) {
-        idev_name = "/dev/input/event15"; //mice and event* does not use the same format!
-    }
 
     while(true){
 
