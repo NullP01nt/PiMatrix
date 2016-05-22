@@ -1,9 +1,9 @@
-#include "publisher.h"
+#include "QPubApp.h"
 
-publisher::publisher(int &argc, char **argv) :
+QPubApp::QPubApp(int &argc, char **argv) :
     QCoreApplication(argc,argv),
     settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME),
-    portnumber( settings.value("subscriber/port",55555).toInt() ),
+    portnumber( settings.value("publisher/port",55555).toInt() ),
     context(1),
     socket(context, ZMQ_PUB)
 {
@@ -11,7 +11,7 @@ publisher::publisher(int &argc, char **argv) :
     socket.bind(connect_str);
 }
 
-void publisher::data_received(input_event_msg_t msg) {
+void QPubApp::data_received(input_event_msg_t msg) {
     zmq::message_t out_going_message (sizeof(input_event_msg_t));
     memcpy (out_going_message.data (), &msg, sizeof(input_event_msg_t));
     socket.send (out_going_message);
