@@ -8,8 +8,10 @@ INCLUDEPATH += .
 
 include($$PWD/../common.pri)
 
-MOC_DIR=$$PWD/moc
-OBJECTS_DIR=$$PWD/objs
+MOC_DIR=$$PWD/build/moc
+OBJECTS_DIR=$$PWD/build/objs
+
+LIBS += -lwiringPi -pthread
 
 # Input
 HEADERS += \
@@ -19,9 +21,10 @@ HEADERS += \
     mouse_event_handler.h\
     gui.h\
     gui_updater.h\
-    mouse_event_handler.h
+    joystick_event_handler.h
 
 SOURCES += main.cpp \
     receiver.cpp \
     worker.cpp\
     mouse_event_handler.cpp \
+    joystick_event_handler.cpp

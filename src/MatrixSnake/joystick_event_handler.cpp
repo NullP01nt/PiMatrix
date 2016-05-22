@@ -1,12 +1,9 @@
-#include "mouse_event_handler.h"
-
-#include <iostream>
+#include "joystick_event_handler.h"
 
 #include <joystick.h>
 
 void joystick_event_handler::data_received(input_event_msg_t msg){
-//    std::cout << msg << std::endl;
-    if (msg.ev_type == JS_EVENT_BUTTON) {
+    if (msg.ev_type == JS_EVENT_BUTTON && msg.ev_value == 0) {
 		switch(msg.ev_code) {
 			case PS3_START:
 				emit game_command(' ');
@@ -27,7 +24,6 @@ void joystick_event_handler::data_received(input_event_msg_t msg){
 				emit game_command('d');
 				break;
 			default:
-				emit game_command('p');
 				break;
 		}
     }

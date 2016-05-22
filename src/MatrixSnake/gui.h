@@ -74,8 +74,7 @@ public slots:
             }
             break;
         case 'p': set_game_state(paused); break;
-
-        default : set_game_state(gameover); break;
+	case 'q': set_game_state(gameover); break;
         }
     }
 };

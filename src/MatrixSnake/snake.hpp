@@ -23,25 +23,27 @@ public:
     }
 
     void set_direction(direction new_movement_dir){
-        if(new_movement_dir != opposite_direction(moving_dir)){
-            dir = new_movement_dir;
-        }
+	if(state == running) {
+	    if(new_movement_dir != opposite_direction(moving_dir)){
+	        dir = new_movement_dir;
+            }
+	}
     }
 
     void set_game_state(gamestate new_state){
-        if(state == gameover){
+        if(new_state == gameover){
             init_snake(3,pos(game_width/2,game_height/2));
             generate_berry();
             state = paused;
-        }
-        state = new_state;
+        } else {
+            state = new_state;
+	}
     }
 
 protected:
     void move_snake(){
         if(state == running){
             pos new_head = *body.begin();
-
 
             switch (dir){
             case north :
@@ -59,6 +61,7 @@ protected:
             default:
                 break;
             }
+
             moving_dir = dir;
 
             if(new_head == berry){
@@ -68,9 +71,9 @@ protected:
             }
 
             if(  (new_head.x < 0 ||
-                  new_head.x > game_width ||
+                  new_head.x >= game_width ||
                   new_head.y < 0 ||
-                  new_head.y > game_height ||
+                  new_head.y >= game_height ||
                   in_collision(new_head) ) ){
                 set_game_state(gameover);
             }
@@ -106,6 +109,7 @@ protected:
             *sn = p;
             p.y++;
         }
+	dir = north;
     }
 
     direction opposite_direction(direction &new_dir){

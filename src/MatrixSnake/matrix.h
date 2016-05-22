@@ -16,7 +16,7 @@
 #include <cstdint>
 #include "pos.hpp"
 
-#define DEBUG
+//#define DEBUG
 
 #define HT16K33_BLINK_CMD			0x80
 #define HT16K33_BLINK_DISPLAYON		0x01
@@ -68,8 +68,8 @@ public:
         wiringPiI2CWrite(fd,HT16K33_BLINK_CMD | speed);
         int mem_addr=0x00;
         for(int row = 0; row < 8; row++ ) {
-            wiringPiI2CWriteReg8(fd, mem_addr++, buffer[row]&0x00FF);
-            wiringPiI2CWriteReg8(fd, mem_addr++, (buffer[row]>>8)&0x00FF);
+            wiringPiI2CWriteReg8(fd, mem_addr++, (displaybuffer[row]>>8)&0x00FF);
+            wiringPiI2CWriteReg8(fd, mem_addr++, displaybuffer[row]&0x00FF);
         }
     #endif
     }
@@ -89,15 +89,18 @@ public:
     }
 
     void turn_on(pos point){
-        uint8_t x = 16 - point.x;
+//        uint8_t x = 15 - point.x;
+        uint8_t x = point.x;
         displaybuffer[point.y] = displaybuffer[point.y] | 1 << x;
     }
     void turn_off(pos point){
-        uint8_t x = 16 - point.x;
+//        uint8_t x = 15 - point.x;
+        uint8_t x = point.x;
         displaybuffer[point.y] = displaybuffer[point.y] & !(1 << x);
     }
     u_int16_t status(pos point){
-        uint8_t x = 16 - point.x;
+//        uint8_t x = 15 - point.x;
+        uint8_t x = point.x;
         return displaybuffer[point.y] & (1 << x);
     }
     void flip(pos point){

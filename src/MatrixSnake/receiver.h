@@ -18,7 +18,7 @@ public:
     ~receiver();
 signals:
     void mouse_received(input_event_msg_t);
-    void game_pad_received(input_event_msg_t);
+    void joystick_received(input_event_msg_t);
 private:
     input_event_msg_t m_event;
     zmq::message_t message;
@@ -36,6 +36,12 @@ private:
     int initSocket(void);
 
     void run();
+public slots:
+    void quitting(void){
+	zmq_socket.close();
+	zmq_context.close();
+	QThread::exit();	
+    }
 };
 
 #endif // RECEIVER_H
