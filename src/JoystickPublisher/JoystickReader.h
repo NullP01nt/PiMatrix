@@ -19,10 +19,14 @@ class JoystickReader : public QThread
 public:
     JoystickReader();
     ~JoystickReader();
+public slots:
+	void cleanup(void);
 signals:
     void joystick_event(js_event_t ev);
 private:
 	void loadSettings(void);
+
+	bool running = true;
 
 	js_event_t event;
     QSettings settings;

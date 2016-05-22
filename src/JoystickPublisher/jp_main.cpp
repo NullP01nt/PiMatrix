@@ -16,18 +16,25 @@
  * publisher receives QtSignals with the package and sends it over ZMQ
  */
 
-Q_DECLARE_METATYPE( js_event_t )
-Q_DECLARE_METATYPE( input_event_msg_t )
+
+#include <signal.h>
+#include <unistd.h>
+
+void catchUnixSignals(const std::vector<int>& quitSignals, const std::vector<int>& ignoreSignals = std::vector<int>()) {
+	auto handler = [](int sig) ->void {
+		QPubApp::quit();
+	};
+
+	// all these signals will be ignored.
+	for ( int sig : ignoreSignals )
+		signal(sig, SIG_IGN);
+	// each of these signals calls the handler (quits the QCoreApplication).
+	for ( int sig : quitSignals )
+		signal(sig, handler);
+}
 
 int main(int argc, char* argv[]){
-
-    qRegisterMetaType<js_event_t>();
     QPubApp a(argc,argv);
-
-    JoystickReader joystick;
-
-    QObject::connect(&joystick,SIGNAL(joystick_event(js_event_t)),&a,SLOT(new_input(js_event_t)));
-	joystick.start();
-
+	catchUnixSignals({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
     return a.exec();
 }

@@ -14,7 +14,7 @@
 #include <msg_types.hpp>
 #include <joystick.h>
 #include "app.h"
-
+#include "JoystickReader.h"
 
 class QPubApp: public QCoreApplication {
     Q_OBJECT
@@ -26,6 +26,8 @@ public slots:
 private:
 	void loadSettings(void);
 	int initSocket(void);
+
+	JoystickReader joystick;
 
 	std::string connect_str;
 

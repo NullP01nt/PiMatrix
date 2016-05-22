@@ -8,14 +8,22 @@ JoystickReader::JoystickReader(void) :
 }
 
 JoystickReader::~JoystickReader(void) {
-
+	QThread::terminate();
 }
 
 void JoystickReader::loadSettings(void) {
 	device_name = settings.value("device/joystick","/dev/input/js0").toString().toStdString();
 }
 
+#include <iostream>
+
+void JoystickReader::cleanup(void) {
+	std::cout << "Cleaning up JoystickReader" << std::endl;
+	running = false;
+}
+
 void JoystickReader::run(){
+
     std::ifstream file;
     file.open(device_name);
 
@@ -23,9 +31,9 @@ void JoystickReader::run(){
         throw( std::runtime_error("opening device, do you have permission?") );
     }
 
-    while( file.read(reinterpret_cast<char*>(&event),sizeof(js_event_t)) ) {
+    while( file.read(reinterpret_cast<char*>(&event),sizeof(js_event_t)) && running ) {
         emit joystick_event(event);
     }
     file.close();
-    QThread::exit();
+	return;
 }

@@ -1,15 +1,23 @@
 #include "QPubApp.h"
 
+Q_DECLARE_METATYPE( js_event_t )
+
 QPubApp::QPubApp(int &argc, char **argv) : QCoreApplication(argc,argv), settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME), msg()
 {
+	qRegisterMetaType<js_event_t>();
 	zmq_context = new zmq::context_t(1);
 	loadSettings();
 	initSocket();
+	connect(&joystick,SIGNAL(joystick_event(js_event_t)), this, SLOT(new_input(js_event_t)));
+	connect(this, SIGNAL(aboutToQuit()),&joystick,SLOT(cleanup()));
+	joystick.start();
 }
 
 QPubApp::~QPubApp(void) {
 	if( zmq_socket != nullptr ) zmq_socket->close();
 	if( zmq_context != nullptr ) zmq_context->close();
+	joystick.terminate();
+	joystick.wait();
 }
 
 void QPubApp::loadSettings() {
@@ -37,5 +45,5 @@ void QPubApp::new_input(js_event_t ev) {
     zmq::message_t out_going_message (sizeof(input_event_msg_t));
     memcpy (out_going_message.data (), &msg, sizeof(input_event_msg_t));
     zmq_socket->send (out_going_message);
-    std::cout << msg << std::endl;
+//    std::cout << msg << std::endl;
 }
