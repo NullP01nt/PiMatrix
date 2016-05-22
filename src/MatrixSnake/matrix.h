@@ -16,7 +16,7 @@
 #include <cstdint>
 #include "pos.hpp"
 
-#define DEBUG
+//#define DEBUG
 
 #define HT16K33_BLINK_CMD			0x80
 #define HT16K33_BLINK_DISPLAYON		0x01
