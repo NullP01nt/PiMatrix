@@ -15,10 +15,14 @@ class MouseReader : public QThread
 public:
     MouseReader();
     ~MouseReader();
+public slots:
+	void cleanup(void);
 signals:
     void mouse_event(input_event_t ev);
 private:
 	void loadSettings(void);
+
+	bool running = true;
 
     input_event_t event;
     QSettings settings;

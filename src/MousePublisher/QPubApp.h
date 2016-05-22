@@ -14,6 +14,7 @@
 #include <mouse.h>
 #include <msg_types.hpp>
 #include "app.h"
+#include "MouseReader.h"
 
 class QPubApp: public QCoreApplication{
     Q_OBJECT
@@ -25,6 +26,8 @@ public slots:
 private:
 	void loadSettings(void);
 	int initSocket(void);
+
+	MouseReader mouse;
 
 	std::string connect_str;
 

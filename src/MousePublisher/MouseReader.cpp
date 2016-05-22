@@ -8,11 +8,15 @@ MouseReader::MouseReader():
 }
 
 MouseReader::~MouseReader(void) {
-
+	QThread::terminate();
 }
 
 void MouseReader::loadSettings(void) {
 	device_name  = settings.value("device/mouse","/dev/input/event16").toString().toStdString();
+}
+
+void MouseReader::cleanup(void) {
+	running = false;
 }
 
 void MouseReader::run(){
@@ -23,9 +27,9 @@ void MouseReader::run(){
         throw( std::runtime_error("opening device, do you have permission?") );
     }
 
-	while( file.read(reinterpret_cast<char*>(&event),sizeof(input_event_t)) ) {
+	while( file.read(reinterpret_cast<char*>(&event),sizeof(input_event_t)) && running ) {
 		emit mouse_event(event);
     }
     file.close();
-    QThread::exit();
+	return;
 }

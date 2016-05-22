@@ -16,7 +16,6 @@
  * publisher receives QtSignals with the package and sends it over ZMQ
  */
 
-
 #include <signal.h>
 #include <unistd.h>
 

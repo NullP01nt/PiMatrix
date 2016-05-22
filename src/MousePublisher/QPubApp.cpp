@@ -5,16 +5,24 @@
 
 #include <linux/input.h>
 
+Q_DECLARE_METATYPE( input_event_t )
+
 QPubApp::QPubApp(int &argc, char **argv) : QCoreApplication(argc,argv), settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME), msg()
 {
+	qRegisterMetaType<input_event_t>();
 	zmq_context = new zmq::context_t(1);
 	loadSettings();
 	initSocket();
+	connect(&mouse, SIGNAL(mouse_event(input_event_t)), this, SLOT(new_input(input_event_t)));
+	connect(this, SIGNAL(aboutToQuit()), &mouse, SLOT(cleanup()));
+	mouse.start();
 }
 
 QPubApp::~QPubApp(void) {
 	if( zmq_socket != nullptr ) zmq_socket->close();
 	if( zmq_context != nullptr ) zmq_context->close();
+	mouse.terminate();
+	mouse.wait();
 }
 
 void QPubApp::loadSettings() {

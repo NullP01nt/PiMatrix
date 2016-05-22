@@ -15,10 +15,7 @@ void JoystickReader::loadSettings(void) {
 	device_name = settings.value("device/joystick","/dev/input/js0").toString().toStdString();
 }
 
-#include <iostream>
-
 void JoystickReader::cleanup(void) {
-	std::cout << "Cleaning up JoystickReader" << std::endl;
 	running = false;
 }
 
