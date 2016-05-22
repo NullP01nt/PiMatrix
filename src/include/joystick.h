@@ -1,3 +1,5 @@
+#pragma once
+
 typedef struct js_event {
 	uint32_t time;
 	int16_t value;

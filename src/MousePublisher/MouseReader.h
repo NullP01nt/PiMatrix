@@ -20,7 +20,6 @@ signals:
 private:
 	void loadSettings(void);
 
-//    input_event_msg_t m_event;
     input_event_t event;
     QSettings settings;
     std::string device_name;

@@ -1,12 +1,16 @@
 #pragma once
 
+// Std
+#include <stdexcept> //to catch fstream exceptions
+#include <fstream>
+
+// Qt
 #include <QThread>
 #include <QSettings>
-#include <msg_types.hpp>
-#include <linux/input.h> //the struct for input events
-#include <fstream>
-#include <stdexcept> //to catch fstream exceptions
 
+// SDU-EMB4
+#include <msg_types.hpp>
+#include <joystick.h>
 #include "app.h"
 
 class JoystickReader : public QThread
@@ -14,12 +18,13 @@ class JoystickReader : public QThread
     Q_OBJECT
 public:
     JoystickReader();
-    ~JoystickReader(){}
+    ~JoystickReader();
 signals:
-    void joystick_event(void *event);
+    void joystick_event(js_event_t ev);
 private:
-    input_event_msg_t m_event;
-    input_event event;
+	void loadSettings(void);
+
+	js_event_t event;
     QSettings settings;
     std::string device_name;
 

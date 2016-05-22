@@ -12,6 +12,7 @@
 
 // SDU-EMB4 includes
 #include <msg_types.hpp>
+#include <joystick.h>
 #include "app.h"
 
 
@@ -21,7 +22,7 @@ public:
     QPubApp(int &argc, char **argv);
     ~QPubApp();
 public slots:
-    void data_received(input_event_msg_t msg);
+	void new_input(js_event_t ev);
 private:
 	void loadSettings(void);
 	int initSocket(void);
@@ -31,6 +32,9 @@ private:
     QSettings settings;
 	std::string			hostname;
     int					portnumber;
+	std::string topic_name;
+
+	input_event_msg_t msg;
 
     zmq::context_t		*zmq_context=nullptr;
     zmq::socket_t		*zmq_socket=nullptr;

@@ -6,7 +6,7 @@
 
 // SDU-EMB4 includes
 #include "QPubApp.h"
-#include <msg_types.hpp>
+#include <joystick.h>
 #include "JoystickReader.h"
 
 /**
@@ -16,16 +16,17 @@
  * publisher receives QtSignals with the package and sends it over ZMQ
  */
 
+Q_DECLARE_METATYPE( js_event_t )
 Q_DECLARE_METATYPE( input_event_msg_t )
 
 int main(int argc, char* argv[]){
 
-    qRegisterMetaType<input_event_msg_t>();
+    qRegisterMetaType<js_event_t>();
     QPubApp a(argc,argv);
 
     JoystickReader joystick;
 
-    QObject::connect(&joystick,SIGNAL(input_event(void*)),&a,SLOT(data_received(void*)));
+    QObject::connect(&joystick,SIGNAL(joystick_event(js_event_t)),&a,SLOT(new_input(js_event_t)));
 	joystick.start();
 
     return a.exec();

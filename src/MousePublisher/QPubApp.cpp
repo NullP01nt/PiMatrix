@@ -23,8 +23,7 @@ void QPubApp::loadSettings() {
 	topic_name = settings.value("publisher/topic","CTRL").toString().toStdString();
 	connect_str = "tcp://" + hostname + ":" + std::to_string( portnumber );
 
-	uint32_t topic_number = 0x4C525443;
-	memcpy(msg.topic, &topic_number, 4);
+	memcpy(msg.topic, topic_name.c_str(), 4);
 	msg.dev_type = DEV_TYPE_MOUSE;
 	msg.dev_model = MOUSE_GENERIC;
 }
@@ -39,8 +38,6 @@ void QPubApp::new_input(input_event_t ev) {
 	msg.ev_type = ev.type;
 	msg.ev_code = ev.code;
 	msg.ev_value = ev.value;
-
-	std::cout << ev.type << " " << ev.code << " " << ev.value << std::endl;
 
     zmq::message_t out_going_message (sizeof(input_event_msg_t));
     memcpy (out_going_message.data (), &msg, sizeof(input_event_msg_t));
