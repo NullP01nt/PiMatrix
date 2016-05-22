@@ -8,7 +8,7 @@
 #include <fstream>
 #include <stdexcept> //to catch fstream exceptions
 
-#include <app.h>
+#include "app.h"
 
 
 class mouse_reader : public QThread

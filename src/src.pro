@@ -4,7 +4,5 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS =	First \
-			JSTest\
-                        mouse\
-                        Extended
+SUBDIRS =	JoystickPublisher \
+			MousePublisher
