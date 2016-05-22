@@ -21,18 +21,41 @@
 #define HT16K33_BLINK_CMD			0x80
 #define HT16K33_BLINK_DISPLAYON		0x01
 #define HT16K33_BLINK_OFF			0x00
-#define HT16K33_BLINK_2HZ			0x01
-#define HT16K33_BLINK_1HZ			0x02
-#define HT16K33_BLINK_HALFHZ		0x03
+//#define HT16K33_BLINK_2HZ			0x01
+#define HT16K33_BLINK_1HZ			0x03 //pause speed
+#define HT16K33_BLINK_HALFHZ		0x05 //game over speed
 
 #define HT16K33_CMD_BRIGHTNESS		0xE0
 
+//for the I2C stuff
+#ifndef DEBUG
+#include <wiringPi.h>
+#include <wiringPiI2C.h>
+#endif
+
 class Matrix {
 public:
-    Matrix(void){}
-    ~Matrix(void){}
+    Matrix(void) :
+        i2c_addr(0x70),
+        displaybuffer(),
+        fd(0)
+    {
+        #ifndef DEBUG
+        fd = wiringPiI2CSetup(i2c_addr);
+        std::cout << fd << std::endl;
 
-    void writeDisplay(void) {
+        wiringPiI2CWrite(fd,0x21); //turn chip on
+        wiringPiI2CWrite(fd,HT16K33_BLINK_CMD | HT16K33_BLINK_DISPLAYON); //not blinking
+        wiringPiI2CWrite(fd,HT16K33_CMD_BRIGHTNESS | 0xF); //full brightness
+        #endif
+    }
+    ~Matrix(void){
+
+        clear();
+        writeDisplay(HT16K33_BLINK_OFF);
+    }
+
+    void writeDisplay(int speed) {
     #ifdef DEBUG
         for(uint8_t y=0; y<8; y++) {
             for(uint8_t x=0; x<16; x++) {
@@ -42,9 +65,11 @@ public:
         }
         std::cout << std::endl;
     #else
-        for(uint8_t y=0; y<8; y++) {
-            // write displaybuffer[y] & 0xFF;
-            // write displaybuffer[y] >> 8;
+        wiringPiI2CWrite(fd,HT16K33_BLINK_CMD | speed);
+        int mem_addr=0x00;
+        for(int row = 0; row < 8; row++ ) {
+            wiringPiI2CWriteReg8(fd, mem_addr++, buffer[row]&0x00FF);
+            wiringPiI2CWriteReg8(fd, mem_addr++, (buffer[row]>>8)&0x00FF);
         }
     #endif
     }
@@ -86,6 +111,7 @@ public:
 protected:
 	uint8_t		i2c_addr;
 	uint16_t	displaybuffer[8];
+    int         fd;
 };
 
 #endif
