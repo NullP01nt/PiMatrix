@@ -5,4 +5,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS =	JoystickPublisher \
-			MousePublisher
+			MousePublisher \
+			MsgBroker \
+			MatrixSnake

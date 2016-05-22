@@ -6,7 +6,7 @@
 #include <QSettings>
 #include <zmq/zmq.hpp>
 
-#include <app.h>
+#include "app.h"
 
 #include <iostream>
 
