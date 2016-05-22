@@ -3,7 +3,7 @@
 #include <iostream>
 
 void mouse_event_handler::data_received(input_event_msg_t msg){
-    std::cout << msg << std::endl;
+//    std::cout << msg << std::endl;
     if (msg.ev_type == 2) {
         if (msg.ev_code == 0) {
             if(msg.ev_value > 0) {

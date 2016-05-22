@@ -16,7 +16,7 @@
 #include <cstdint>
 #include "pos.hpp"
 
-//#define DEBUG
+#define DEBUG
 
 #define HT16K33_BLINK_CMD			0x80
 #define HT16K33_BLINK_DISPLAYON		0x01
@@ -59,7 +59,7 @@ public:
     #ifdef DEBUG
         for(uint8_t y=0; y<8; y++) {
             for(uint8_t x=0; x<16; x++) {
-                std::cout << (displaybuffer[y]&(1<<(16-x)) ? "1" : "0");
+                std::cout << (displaybuffer[y]&(1<<(x)) ? "1" : "0");
             }
             std::cout << std::endl;
         }
