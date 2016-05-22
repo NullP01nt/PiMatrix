@@ -15,17 +15,23 @@
 #include "app.h"
 
 
-class QPubApp: public QCoreApplication{
+class QPubApp: public QCoreApplication {
     Q_OBJECT
 public:
     QPubApp(int &argc, char **argv);
-    ~QPubApp(){}
+    ~QPubApp();
 public slots:
     void data_received(input_event_msg_t msg);
 private:
-    QSettings settings;
-    int portnumber;
-    zmq::context_t context;
-    zmq::socket_t socket;
-};
+	void loadSettings(void);
+	int initSocket(void);
 
+	std::string connect_str;
+
+    QSettings settings;
+	std::string			hostname;
+    int					portnumber;
+
+    zmq::context_t		*zmq_context=nullptr;
+    zmq::socket_t		*zmq_socket=nullptr;
+};

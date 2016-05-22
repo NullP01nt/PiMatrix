@@ -16,7 +16,7 @@ public:
     JoystickReader();
     ~JoystickReader(){}
 signals:
-    void input_event(void *event);
+    void joystick_event(void *event);
 private:
     input_event_msg_t m_event;
     input_event event;

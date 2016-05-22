@@ -16,6 +16,7 @@ void JoystickReader::run(){
     if(!file.good()){
         throw( std::runtime_error("opening device, do you have permission?") );
     }
+
     uint32_t topic_number = 0x4C525443; //not sure what should be here
     memcpy(m_event.topic, &topic_number,4);
     m_event.dev_type  = DEV_TYPE_JOYSTICK; // Joystick
@@ -25,7 +26,7 @@ void JoystickReader::run(){
         m_event.ev_type   = event.type;
         m_event.ev_code   = event.code;
         m_event.ev_value  = event.value;
-        emit input_event(( void* )m_event);
+        emit joystick_event(reinterpret_cast<void*>(&m_event));
     }
     file.close();
     QThread::exit();

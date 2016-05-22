@@ -1,5 +1,13 @@
+// Std includes
+
+// Qt includes
+#include <QObject>
 #include <QCoreApplication>
+
+// SDU-EMB4 includes
+#include "QPubApp.h"
 #include <msg_types.hpp>
+#include "JoystickReader.h"
 
 /**
  * Input Server application.
@@ -8,22 +16,17 @@
  * publisher receives QtSignals with the package and sends it over ZMQ
  */
 
-#include "publisher.h"
-#include "mouse_reader.h"
-
 Q_DECLARE_METATYPE( input_event_msg_t )
 
 int main(int argc, char* argv[]){
 
     qRegisterMetaType<input_event_msg_t>();
-    publisher a(argc,argv);
+    QPubApp a(argc,argv);
 
-    mouse_reader mouse;
-//    gamepad_reader gamepad;
+    JoystickReader joystick;
 
-    QObject::connect(&mouse,SIGNAL(mouse_received(input_event_msg_t)),&a,SLOT(data_received(input_event_msg_t)));
-//    QObject::connect(&gamepad,SIGNAL(gamepad_received(input_event_msg_t)),&a,SLOT(data_received(input_event_msg_t)));
-    mouse.start();
+    QObject::connect(&joystick,SIGNAL(input_event(void*)),&a,SLOT(data_received(void*)));
+	joystick.start();
 
     return a.exec();
 }
