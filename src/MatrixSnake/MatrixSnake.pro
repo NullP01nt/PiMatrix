@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = game 
+TARGET = MatrixSnake
 INCLUDEPATH += .
 
 include($$PWD/../common.pri)

@@ -10,13 +10,14 @@ class snake {
 public:
     gamestate state;
     snake():
+        state(paused),
+        game_height(8),
+        game_width(16),
         body(),
         berry(),
         dir(),
-        moving_dir(),
-        game_width(16),
-        game_height(8),
-        state(paused){
+        moving_dir()
+	{
         init_snake(3,pos(game_width/2,game_height/2));
         generate_berry();
     }
@@ -133,4 +134,3 @@ protected:
 
     direction dir, moving_dir;
 };
-

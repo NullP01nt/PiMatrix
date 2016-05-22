@@ -22,7 +22,7 @@ receiver::~receiver(){
 void receiver::loadSettings(void) {
     QSettings settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME);
     hostname = settings.value("subscriber/host","localhost").toString().toStdString();
-    topicname = settings.value("subscriber/topic","HELLO").toString().toStdString();
+    topicname = settings.value("subscriber/topic","CTRL").toString().toStdString();
     portnumber = settings.value("subscriber/port",55555).toInt();
 }
 
@@ -30,11 +30,8 @@ int receiver::initSocket(void) {
     connect_str = "tcp://" + hostname + ":" + std::to_string( portnumber );
 
     zmq_socket.connect(connect_str);
-    /*
-    zmq_socket.setsockopt(ZMQ_SUBSCRIBE,topicname.c_str(), topicname.length()+1);
-    /*/
+  //  zmq_socket.setsockopt(ZMQ_SUBSCRIBE,topicname.c_str(), topicname.length()+1);
     zmq_socket.setsockopt(ZMQ_SUBSCRIBE,"", 0);
-    //*/
     return 0;
 }
 
