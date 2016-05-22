@@ -11,6 +11,7 @@
 #include <zmq/zmq.hpp>
 
 // SDU-EMB4 includes
+#include <mouse.h>
 #include <msg_types.hpp>
 #include "app.h"
 
@@ -20,10 +21,10 @@ public:
     QPubApp(int &argc, char **argv);
     ~QPubApp();
 public slots:
-    void data_received(input_event_msg_t msg);
+	void new_input(input_event_t ev);
 private:
 	void loadSettings(void);
-	void initSocket(void);
+	int initSocket(void);
 
 	std::string connect_str;
 
@@ -31,6 +32,9 @@ private:
 	std::string hostname;
 	int portnumber;
 
-    zmq::context_t	*zmq_context = nullptr;
+	input_event_msg_t msg;
+	std::string topic_name;
+
+	zmq::context_t	*zmq_context = nullptr;
     zmq::socket_t	*zmq_socket = nullptr;
 };

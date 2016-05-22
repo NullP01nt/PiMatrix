@@ -1,6 +1,11 @@
 #include "QPubApp.h"
 
-QPubApp::QPubApp(int &argc, char **argv) : QCoreApplication(argc,argv), settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME)
+#include <QCoreApplication>
+#include <msg_types.hpp>
+
+#include <linux/input.h>
+
+QPubApp::QPubApp(int &argc, char **argv) : QCoreApplication(argc,argv), settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME), msg()
 {
 	zmq_context = new zmq::context_t(1);
 	loadSettings();
@@ -15,7 +20,13 @@ QPubApp::~QPubApp(void) {
 void QPubApp::loadSettings() {
 	hostname = settings.value("publisher/host","localhost").toString().toStdString();
 	portnumber = settings.value("publisher/port",55554).toInt();
+	topic_name = settings.value("publisher/topic","CTRL").toString().toStdString();
 	connect_str = "tcp://" + hostname + ":" + std::to_string( portnumber );
+
+	uint32_t topic_number = 0x4C525443;
+	memcpy(msg.topic, &topic_number, 4);
+	msg.dev_type = DEV_TYPE_MOUSE;
+	msg.dev_model = MOUSE_GENERIC;
 }
 
 int QPubApp::initSocket() {
@@ -24,7 +35,13 @@ int QPubApp::initSocket() {
 	return 0;
 }
 
-void QPubApp::data_received(input_event_msg_t msg) {
+void QPubApp::new_input(input_event_t ev) {
+	msg.ev_type = ev.type;
+	msg.ev_code = ev.code;
+	msg.ev_value = ev.value;
+
+	std::cout << ev.type << " " << ev.code << " " << ev.value << std::endl;
+
     zmq::message_t out_going_message (sizeof(input_event_msg_t));
     memcpy (out_going_message.data (), &msg, sizeof(input_event_msg_t));
     zmq_socket->send (out_going_message);
