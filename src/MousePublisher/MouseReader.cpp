@@ -1,11 +1,15 @@
-#include "mouse_reader.h"
+#include "MouseReader.h"
 
-mouse_reader::mouse_reader():
+MouseReader::MouseReader():
     m_event(),
     event(),
     settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME),
     device_name( settings.value("subscriber/mouse","/dev/input/event16").toString().toStdString() )
 {
+
+}
+
+MouseReader::~MouseReader(void) {
 
 }
 

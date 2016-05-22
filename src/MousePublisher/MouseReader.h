@@ -1,5 +1,4 @@
-#ifndef MOUSE_READER_H
-#define MOUSE_READER_H
+#pragma once
 
 #include <QThread>
 #include <QSettings>
@@ -11,14 +10,14 @@
 #include "app.h"
 
 
-class mouse_reader : public QThread
+class MouseReader : public QThread
 {
     Q_OBJECT
 public:
-    mouse_reader();
-    ~mouse_reader(){}
+    MouseReader();
+    ~MouseReader();
 signals:
-    void mouse_received(input_event_msg_t);
+    void mouse_event(input_event_msg_t);
 private:
     input_event_msg_t m_event;
     input_event event;
@@ -27,4 +26,3 @@ private:
 
     void run();
 };
-#endif // MOUSE_READER_H

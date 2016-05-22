@@ -1,19 +1,32 @@
-#include "publisher.h"
+#include "QPubApp.h"
 
-publisher::publisher(int &argc, char **argv) :
-    QCoreApplication(argc,argv),
-    settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME),
-    portnumber( settings.value("subscriber/port",55555).toInt() ),
-    context(1),
-    socket(context, ZMQ_PUB)
+QPubApp::QPubApp(int &argc, char **argv) : QCoreApplication(argc,argv), settings(QSettings::NativeFormat, QSettings::UserScope, ORG_NAME, APP_NAME)
 {
-    std::string connect_str = "tcp://*:" + std::to_string( portnumber );
-    socket.bind(connect_str);
+	zmq_context = new zmq::context_t(1);
+	loadSettings();
+	initSocket();
 }
 
-void publisher::data_received(input_event_msg_t msg) {
+QPubApp::~QPubApp(void) {
+	if( zmq_socket != nullptr ) zmq_socket->close();
+	if( zmq_context != nullptr ) zmq_context->close();
+}
+
+void QPubApp::loadSettings() {
+	hostname = settings.value("publisher/host","localhost").toString().toStdString();
+	portnumber = settings.value("publisher/port",55554).toInt();
+	connect_str = "tcp://" + hostname + ":" + std::to_string( portnumber );
+}
+
+int QPubApp::initSocket() {
+	zmq_socket = new zmq::socket_t(*zmq_context, ZMQ_PUB);
+	zmq_socket->connect( connect_str );
+	return 0;
+}
+
+void QPubApp::data_received(input_event_msg_t msg) {
     zmq::message_t out_going_message (sizeof(input_event_msg_t));
     memcpy (out_going_message.data (), &msg, sizeof(input_event_msg_t));
-    socket.send (out_going_message);
+    zmq_socket->send (out_going_message);
     std::cout << msg << std::endl;
 }
