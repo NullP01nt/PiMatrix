@@ -2,7 +2,10 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 
-include($$PWD/../Extended/common.pri)
+include($$PWD/../common.pri)
+
+MOC_DIR=$$PWD/build/moc
+OBJECTS_DIR=$$PWD/build/objs
 
 TARGET = input_server
 

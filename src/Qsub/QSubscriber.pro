@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = QSubscriber
 INCLUDEPATH += .
 
-include($$PWD/../Extended/common.pri)
+include($$PWD/../common.pri)
 
 MOC_DIR=$$PWD/moc
 OBJECTS_DIR=$$PWD/objs

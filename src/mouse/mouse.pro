@@ -2,7 +2,7 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 
-include($$PWD/../Extended/common.pri)
+include($$PWD/../common.pri)
 
 TARGET = mouse
 
