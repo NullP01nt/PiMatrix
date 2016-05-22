@@ -8,7 +8,6 @@ MouseReader::MouseReader():
 }
 
 MouseReader::~MouseReader(void) {
-	QThread::terminate();
 }
 
 void MouseReader::loadSettings(void) {
@@ -31,5 +30,4 @@ void MouseReader::run(){
 		emit mouse_event(event);
     }
     file.close();
-	return;
 }
