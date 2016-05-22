@@ -13,4 +13,4 @@ OBJECTS_DIR=$$PWD/build/objs
 
 # Input
 HEADERS += app.h mouse_reader.h publisher.h
-SOURCES += main.cpp mouse_reader.cpp publisher.cpp
+SOURCES += jp_main.cpp mouse_reader.cpp publisher.cpp

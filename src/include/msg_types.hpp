@@ -26,3 +26,9 @@ typedef struct input_event_msg {
 		return out;
 	}
 } input_event_msg_t;
+
+#define DEV_TYPE_MOUSE 0x01
+#define MOUSE_GENERIC 0x01
+
+#define DEV_TYPE_JOYSTICK 0x02
+#define JOYSTICK_PS3 0x01
