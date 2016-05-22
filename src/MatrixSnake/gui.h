@@ -7,14 +7,18 @@
 #include <QtCore>
 #include <QThread>
 
+#define MAX_TIMEOUT 15
+
 class gui : public QThread, public snake
 {
     Q_OBJECT
 private:
     Matrix m;
+    unsigned long timeout;
 public:
     gui():
-    m(){
+    m(),
+    timeout(0){
     }
     ~gui(){}
 
@@ -26,13 +30,35 @@ public slots:
             m.turn_on(*t);
         }
         m.turn_on(berry);
+        int led_speed = 1;
         switch(state){
-        case running: std::cout << "running\n"; break;
-        case paused: std::cout << "paused\n"; break;
-        case gameover: std::cout << "game over\n"; break;
+        case running:
+            led_speed = HT16K33_BLINK_DISPLAYON;
+            #ifdef DEBUG
+            std::cout << "running\n";
+            #endif
+            timeout=0;
+            break;
+        case paused:
+            led_speed = HT16K33_BLINK_1HZ;
+            #ifdef DEBUG
+            std::cout << "paused\n";
+            #endif
+            timeout++;
+            break;
+        case gameover:
+            led_speed = HT16K33_BLINK_HALFHZ;
+            #ifdef DEBUG
+            std::cout << "game over\n";
+            #endif
+            timeout++;
+            break;
         }
-
-        m.writeDisplay();
+        if(timeout >= MAX_TIMEOUT){
+            m.clear();
+            led_speed = HT16K33_BLINK_OFF;
+        }
+        m.writeDisplay(led_speed);
     }
     void get_input(char key){
         switch(key){
