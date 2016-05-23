@@ -15,6 +15,9 @@ The software side of things is partly managed by the following services:
 * Avahi-daemon (mDNS)
 * DNSMasq (DHCP)
 
+To be on the safe side, both Avahi-daemon and DNSMasq have been set to only use
+local ethernet devices. Documentation can be found in the relevant man-pages.
+
 The source folder includes the following applications:
 * MatrixSnake
 * MessageBroker
