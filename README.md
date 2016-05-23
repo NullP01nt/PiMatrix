@@ -27,6 +27,7 @@ The setup consists of the following systems:
 #### Setup guide for the project ####
 
 #### On the laptop ####
+```bash
 su
 apt-add-repository ppa:segf4ult/zeromq
 apt-update
@@ -37,9 +38,9 @@ cd PiMatrix/src/MessageBroker
 qmake
 make
 ./MessageBroker &
-
+```
 ##### If a PS3 controller is desired, connect it to the laptop
-#check out help.ubuntu.com/community/Sixaxis
+##### check out help.ubuntu.com/community/Sixaxis
 echo "
 [publisher]
 host=broker.local
