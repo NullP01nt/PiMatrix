@@ -1,9 +1,31 @@
 #include "mouse_event_handler.h"
 
-#include <iostream>
+#include <mouse.h>
 
+void mouse_event_handler::data_received(input_event_msg_t msg) {
+    if(msg.ev_type == EV_KEY && msg.ev_value == MOUSE_PRESSED) {
+        switch(msg.ev_code) {
+            case MOUSE_LBTN:
+                emit game_command(' ');
+                break;
+            case MOUSE_MBTN:
+            case MOUSE_RBTN:
+                emit game_command('q');
+                break;
+        }
+    } else if (msg.ev_type == EV_REL) {
+	switch(msg.ev_code) {
+            case MOUSE_AXIS_X:
+                emit game_command(msg.ev_value>0 ? 'd':'a');
+                break;
+            case MOUSE_AXIS_Y:
+                emit game_command(msg.ev_value>0 ? 's':'w');
+                break;
+	}
+    } 
+}
+/*
 void mouse_event_handler::data_received(input_event_msg_t msg){
-//    std::cout << msg << std::endl;
     if (msg.ev_type == 2) {
         if (msg.ev_code == 0) {
             if(msg.ev_value > 0) {
@@ -32,4 +54,4 @@ void mouse_event_handler::data_received(input_event_msg_t msg){
 //            if (msg.ev_value == 0); //released
     }
 }
-
+*/
