@@ -47,6 +47,8 @@ echo "
 host=broker.local
 topic=CTRL
 port=55554
+[device]
+device_name=/dev/input/js0
 " > ~/.config/SDU-EMB4/P3_JOYPUB.conf
 cd -
 cd PiMatrix/src/JoystickPublisher
