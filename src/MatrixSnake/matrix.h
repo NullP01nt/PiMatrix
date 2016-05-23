@@ -59,12 +59,16 @@ public:
     #ifdef DEBUG
         for(uint8_t y=0; y<8; y++) {
             for(uint8_t x=0; x<16; x++) {
-                std::cout << (displaybuffer[y]&(1<<(x)) ? "1" : "0");
+                std::cout << (displaybuffer[y]&(1<<(16-x)) ? "1" : "0");
             }
             std::cout << std::endl;
         }
         std::cout << std::endl;
     #else
+	if (oldbright != bright) {
+		wiringPiI2CWrite(fd,0xE0 | bright);
+		oldbright = bright;
+	}
         wiringPiI2CWrite(fd,HT16K33_BLINK_CMD | speed);
         int mem_addr=0x00;
         for(int row = 0; row < 8; row++ ) {
@@ -111,10 +115,23 @@ public:
         }
     }
 
+    void lowerBrightness(void) {
+	--bright;
+	if (bright==0x00) bright = 0x01;
+    }
+    
+    void raiseBrightness(void) {
+	++bright;
+	if (bright>=0x10) bright = 0x0F;
+    }
+
 protected:
 	uint8_t		i2c_addr;
 	uint16_t	displaybuffer[8];
     int         fd;
+
+	uint8_t		bright = 0x0F;
+	uint8_t		oldbright = 0x0F;
 };
 
 #endif

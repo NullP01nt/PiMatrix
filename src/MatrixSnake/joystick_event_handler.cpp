@@ -23,6 +23,12 @@ void joystick_event_handler::data_received(input_event_msg_t msg){
 			case PS3_RIGHT:
 				emit game_command('d');
 				break;
+			case PS3_R1:
+				emit game_command('B');
+				break;
+			case PS3_R2:
+				emit game_command('b');
+				break;
 			default:
 				break;
 		}

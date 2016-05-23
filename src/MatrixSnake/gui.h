@@ -75,6 +75,8 @@ public slots:
             break;
         case 'p': set_game_state(paused); break;
 	case 'q': set_game_state(gameover); break;
+	case 'b': m.lowerBrightness(); break;
+	case 'B': m.raiseBrightness(); break;
         }
     }
 };
