@@ -16,6 +16,85 @@ The software side of things is managed by the following services:
 
 Our setup consists of the following systems:
 The setup consists of the following systems:
-* Laptop [Avahi-daemon, DNSMasq] (broker.local)
-* Raspberry Pi 2 with add-on board [Avahi-daemon] (screenpi.local)
-* Raspberry PI 2 with mouse [Avahi-daemon] (mousepi.local)
+* Laptop 
+  * Avahi-daemon (broker.local)
+  * DNSMasq 
+* Raspberry Pi 2 with add-on board 
+  * Avahi-daemon (screenpi.local)
+* Raspberry PI 2 with mouse 
+  * Avahi-daemon (mousepi.local)
+
+#### Setup guide for the project ####
+
+#### On the laptop ####
+su
+apt-add-repository ppa:segf4ult/zeromq
+apt-update
+apt install build-essential git-core qttools5-dev libqt5core5a avahi-daemon pkg-config cppzmq
+exit
+git clone https://github.com/NullP01nt/PiMatrix.git
+cd PiMatrix/src/MessageBroker
+qmake
+make
+./MessageBroker &
+
+##### If a PS3 controller is desired, connect it to the laptop
+#check out help.ubuntu.com/community/Sixaxis
+echo "
+[publisher]
+host=broker.local
+topic=CTRL
+port=55554
+" > ~/.config/SDU-EMB4/P3_JOYPUB.conf
+cd -
+cd PiMatrix/src/JoystickPublisher
+qmake
+make
+./JoystickPublisher &
+
+#### on the pi's ####
+sudo su
+apt-add-repository ppa:segf4ult/zeromq
+apt update
+apt install build-essential git-core qttools5-dev libqt5core5a avahi-daemon pkg-config cppzmq
+exit
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+cd -
+git clone https://github.com/NullP01nt/PiMatrix.git
+cd PiMatrix
+
+##### On the MousePi #####
+cd src/MousePublisher
+qmake
+make
+##### plug in mouse #####
+MOUSE=/dev/input/$(ls -lc /dev/input/by-path/ | grep event-mouse | head -n 1 | rev | cut -d '/' -f 1 | rev )
+sudo chmod +r $MOUSE
+echo "
+[device]
+mouse=$MOUSE
+[publisher]
+host=broker.local
+topic=CTRL
+port=55554
+" > ~/.config/SDU-EMB4/P3_MOUSEPUB.conf
+echo "PATH=\$PATH:$pwd" >> ~/.bashrc
+source ~/.bashrc
+MousePublisher
+
+##### On the ScreenPi #####
+cd src/MatrixSnake
+qmake
+make
+echo "
+[subscriber]
+host=broker.local
+topic=CTRL
+port=55555
+" > ~/.config/SDU-EMB4/P3_MATSNAKE.conf
+echo "PATH=\$PATH:$pwd" >> ~/.bashrc
+source ~/.bashrc
+MatrixSnake
+
