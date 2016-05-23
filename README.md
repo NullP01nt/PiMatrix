@@ -11,6 +11,6 @@ Inside the eagle folder, there is a design for an add-on board suited for a Rasp
 This add-on board includes 2 8x8 LED matrices to form a complete 16x8 LED matrix display.
 
 The setup consists of the following systems:
-* Laptop running Avahi, DNSMasq (lightweight DHCP)
-* Raspberry Pi 2 with add-on board (henceforth called ScreenPi)
-* Raspberry PI 2 with mouse (henceforth called MousePi)
+* Laptop running Avahi, DNSMasq (lightweight DHCP), MessageBroker, JoystickPublisher
+* Raspberry Pi 2 with add-on board (henceforth called ScreenPi), running Avahi, MatrixSnake
+* Raspberry PI 2 with mouse (henceforth called MousePi), running Avahi, MousePublisher
