@@ -76,7 +76,12 @@ cd src/MousePublisher
 qmake
 make
 ##### plug in mouse #####
-MOUSE=/dev/input/$(ls -lc /dev/input/by-path/ | grep event-mouse | head -n 1 | rev | cut -d '/' -f 1 | rev )
+MOUSE=/dev/input/$(ls -lc /dev/input/by-path/ | # l to see symbolic links, c for sorting
+                   grep event-mouse | #select the event-mouse
+                   head -n 1 | #if there is more than one, pick the one most recently plugged in.
+                   rev | #reverse to get the last
+                   cut -d '/' -f 1 | #entry of '/'
+                   rev ) # reverse again to make it readable
 sudo chmod +r $MOUSE
 echo "
 [device]
