@@ -30,7 +30,7 @@ The setup consists of the following systems:
 ```bash
 su
 apt-add-repository ppa:segf4ult/zeromq
-apt-update
+apt update
 apt install build-essential git-core qttools5-dev libqt5core5a avahi-daemon pkg-config cppzmq
 exit
 git clone https://github.com/NullP01nt/PiMatrix.git
@@ -40,7 +40,8 @@ make
 ./MessageBroker &
 ```
 ##### If a PS3 controller is desired, connect it to the laptop
-##### check out help.ubuntu.com/community/Sixaxis
+[check out setup guide] (https://help.ubuntu.com/community/Sixaxis)
+```bash
 echo "
 [publisher]
 host=broker.local
@@ -52,8 +53,9 @@ cd PiMatrix/src/JoystickPublisher
 qmake
 make
 ./JoystickPublisher &
-
+```
 #### on the pi's ####
+```bash
 sudo su
 apt-add-repository ppa:segf4ult/zeromq
 apt update
@@ -65,8 +67,9 @@ cd wiringPi
 cd -
 git clone https://github.com/NullP01nt/PiMatrix.git
 cd PiMatrix
-
+```
 ##### On the MousePi #####
+```bash
 cd src/MousePublisher
 qmake
 make
@@ -84,8 +87,9 @@ port=55554
 echo "PATH=\$PATH:$pwd" >> ~/.bashrc
 source ~/.bashrc
 MousePublisher
-
+```
 ##### On the ScreenPi #####
+```bash
 cd src/MatrixSnake
 qmake
 make
@@ -98,4 +102,4 @@ port=55555
 echo "PATH=\$PATH:$pwd" >> ~/.bashrc
 source ~/.bashrc
 MatrixSnake
-
+```
