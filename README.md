@@ -74,7 +74,7 @@ cd src/MousePublisher
 qmake
 make
 ##### plug in mouse #####
-MOUSE=/dev/input/$(ls -lc /dev/input/by-path/ | # use list to see the symbolic links, c for sorting for recent
+MOUSE=/dev/input/$(ls -lc /dev/input/by-path/ | # l to see symbolic links, c for sorting
                    grep event-mouse | #select the event-mouse
                    head -n 1 | #if there is more than one, pick the one most recently plugged in.
                    rev | #reverse to get the last
