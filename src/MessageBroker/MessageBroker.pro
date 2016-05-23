@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = MsgBroker
+TARGET = MessageBroker
 INCLUDEPATH += .
 
 include($$PWD/../common.pri)
