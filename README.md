@@ -47,6 +47,7 @@ qmake
 make
 ./MessageBroker &
 ```
+
 ##### If a PS3 controller is desired, connect it to the laptop
 [check out setup guide] (https://help.ubuntu.com/community/Sixaxis)
 ```bash
@@ -64,6 +65,7 @@ qmake
 make
 ./JoystickPublisher &
 ```
+
 #### on the pi's ####
 ```bash
 sudo su
@@ -79,6 +81,7 @@ cd -
 git clone https://github.com/NullP01nt/PiMatrix.git
 cd PiMatrix
 ```
+
 ##### On the MousePi #####
 ```bash
 cd src/MousePublisher
@@ -106,6 +109,7 @@ echo "PATH=\$PATH:$pwd" >> ~/.bashrc
 source ~/.bashrc
 MousePublisher
 ```
+
 ##### On the ScreenPi #####
 ```bash
 cd src/MatrixSnake
